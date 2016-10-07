@@ -10,7 +10,15 @@ IconElements::IconElements(const int & x, const int & y, const int & width, cons
 
 void IconElements::draw(Geometry* geometry)
 {
-	int x = this->width / 2;
+	int l = 0.5*width;
+	if (geometry->isinside(this->x, this->y,l)==true) r = 0, g = 1, b = 0;
+	else r = 0, g = 0, b = 1;
+
+	geometry->drawLine(x - 0.5*width, y - 0.5*height, x + 0.5*width, y - 0.5*height, r, g, b);
+	geometry->drawLine(x - 0.5*width, y + 0.5*height, x + 0.5*width, y + 0.5*height, r, g, b);
+	geometry->drawLine(x - 0.5*width, y - 0.5*height, x - 0.5*width, y + 0.5*height, r, g, b);
+	geometry->drawLine(x + 0.5*width, y - 0.5*height, x + 0.5*width, y + 0.5*height, r, g, b);
+	/*int x = this->width / 2;
 	int y = 0;
 	int err = 0;
 	if (geometry->isinside(this->x, this->y, x)) {
@@ -36,7 +44,7 @@ void IconElements::draw(Geometry* geometry)
 			err += 1 - 2 * x;
 		}
 
-	}
+	}*/
 }
 
 Icon_t1::Icon_t1(const int & x, const int & y, const int & width, const int & height, const float & r, const float & g, const float & b) :IconElements(x, y, width, height, r, g, b)
@@ -73,7 +81,7 @@ void Icon_t2::draw(Geometry * geometry)
 	IconElements::draw(geometry);
 	geometry->drawLine(x, y, x, y + 50, 1.0f, 0.0f, 0.0f);
 	geometry->drawLine(x - 0.5 * 50 * pow(3, 0.5), y - 25, x, y, 1.0f, 0.0f, 0.0f);
-	geometry->drawLine(x, y, x + 0.5 * 50 * pow(3, 0.5), y - 25, 1.0f, 0.0f, 0.0f);
+	geometry->drawLine(x,y,x + 0.5 * 50 * pow(3, 0.5), y - 25, 1.0f, 0.0f, 0.0f);
 }
 void Icon_t3::draw(Geometry * geometry)
 {

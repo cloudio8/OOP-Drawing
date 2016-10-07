@@ -48,7 +48,7 @@ void Geometry::drawLine(const int & i0, const int & j0, const int & i1, const in
 	{
 		for (int y = j0; y < j1; y++)
 		{
-			drawPixel(i0, y, 1.0f, 0.0f, 0.0f);
+			drawPixel(i0, y, red, green, blue);
 		}
 	}
 
@@ -60,13 +60,18 @@ void Geometry::drawLine(const int & i0, const int & j0, const int & i1, const in
 	}
 }
 
-bool Geometry::isinside(int x_c, int y_c, int r)
+bool Geometry::isinside(int x_c, int y_c, int length)
 {
+	int a = 0, b = 0;
+	if (x_c - length < pos_x&&pos_x < x_c + length)a = 1;
+	if (y_c - length < (height-pos_y)&&(height-pos_y) < y_c + length) b = 1;
 
-	if (r < 40) return false;   //안의 원까지 색깔이 변하는 것을 방지.
+	if (a == 1 && b == 1) return true;
+	else return false;
+	/*if (r < 40) return falsde;   //안의 원까지 색깔이 변하는 것을 방지.
 	double TF = (pos_x - x_c)*(pos_x - x_c) + ((height - pos_y) - y_c)*((height - pos_y) - y_c) - r*r;
 	if (TF > 0)return false;
-	else return true;
+	else return true;*/
 }
 
 int Geometry::getPosX()
